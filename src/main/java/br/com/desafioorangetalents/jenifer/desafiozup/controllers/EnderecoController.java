@@ -31,6 +31,10 @@ public class EnderecoController {
     @GetMapping
     public ResponseEntity<?> buscaEnderecos (@RequestParam Long idUsuario){
         List<Endereco> enderecos = enderecoRepository.findAllByUsuarioId(idUsuario);
+        if(enderecos.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Que pena, não encontramos nenhum endereço para esse usuario \uD83D\uDE14");
+        }
         return ResponseEntity.ok(enderecos);
+
     }
 }
